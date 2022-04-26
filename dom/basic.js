@@ -8,6 +8,7 @@
 let h3Tag = document.getElementsByTagName('h3');
 console.log(h3Tag); //HTMLCollection []
 
+
 console.log('1');
 
 document.addEventListener('DOMContentLoaded', function(){
