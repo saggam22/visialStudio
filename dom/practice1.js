@@ -62,17 +62,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //reduce 사용
 document.addEventListener('DOMContentLoaded', function () {
-  let menus = ['아이스아메리카노', '카페라떼', '레몬에이드'];
+  let menus = ['아이스아메리카노', '카페라떼', '레몬에이xm'];
 
-  menus.reduce((tag, menu, idx) => {
+  let result =  menus.reduce((accum, elem, idx) => {
     if (idx == 0) {
-      tag += document.createElement('ul');
+      accum += '<ul>';
     }
-    tag += document.createElement('li')
-    tag.innerHTML 
-    if (idx == menus.length-1) {
-      tag += document.createElement('/ul');
-    }
-  }, '');
 
+    accum += `<li> ${elem} </li>`;
+
+    if (idx == menus.length - 1) {
+      accum += '</ul>';
+    }
+    return accum;
+  }, '');
+  document.write(result);
 });

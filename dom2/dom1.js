@@ -12,54 +12,75 @@ data.forEach((elem) => {
   list.appendChild(makeTr(elem));
 });
 
-//변경버튼에 이벤트 설정
+//변경버튼에 이벤트 설정(값을 하나씩 설정)
 let chageBtn = document.querySelector('input[type="button"]');
+chageBtn.addEventListener('click', function(e) {
+  //대상 찾아오도록
+  let targetTr = document.querySelectorAll('#list>tr');
+  console.log(targetTr);
+  let sno = document.getElementById('sno').value;
+  let sname = document.getElementById('sname').value;
+  let eng = document.getElementById('eng').value;
+  let kor = document.getElementById('kor').value;
+  
+  targetTr.forEach(function (tr) {
+    if(tr.children[0].innerHTML == sno) {
+      tr.children[1].innerHTML = sname; //이름 변경
+      tr.children[2].innerHTML = eng;
+      tr.children[3].innerHTML = kor;
+    }
+  });
+});
+
+//변경버튼에 이벤트 설정(forEach)
+//function chageCallBack1(e) {
 // chageBtn.addEventListener('click', function(e) {
-//   //대상 찾아오도록
-//   let targetTr = document.querySelectorAll('#list>tr');
-//   console.log(targetTr);
+//   e.preventDefault(); //기본기능 차단(페이지 넘어가는 기능을 차단)
+
+//   let fields = ['sname', 'eng', 'kor'];
+
+//     let sno = document.getElementById('sno').value;
+//     let result = '';
+//     fields.forEach((field) => {
+//       let check = document.getElementById(field).value;
+//       if(!check || !sno) {
+//         result = 'false';
+//         return result;
+//       }
+//     });
+    
+//     if (result == 'false') {
+//     alert(`필수 값을 입력하세요`);
+//     } else {
+//     fields.forEach((field, idx) => {
+//         let searchTr = document.getElementById(`s_${sno}`);
+//         searchTr.children[idx+1].innerHTML = document.getElementById(field).value;
+//       });
+//     }
+// });
+
+//변경버튼에 이벤트 설정(값을 대입) : 눈에 쉽게 보이고 확실한 코드이므로 forEach보다는 값을 대입하는 것을 사용하는 것을 권장
+// chageBtn.addEventListener('click', function(e) {
+//   e.preventDefault();
+  
 //   let sno = document.getElementById('sno').value;
 //   let sname = document.getElementById('sname').value;
 //   let eng = document.getElementById('eng').value;
 //   let kor = document.getElementById('kor').value;
-//   targetTr.forEach(function (tr) {
-//     if(tr.children[0].innerHTML == sno) {
-//       tr.children[1].innerHTML = sname; //이름 변경
-//       tr.children[2].innerHTML = eng;
-//       tr.children[3].innerHTML = kor;
-//     }
-//   });
+
+//   if(!sno || !sname || !eng || !kor) {
+//     alert('필수값을 입력하세요');
+//     return;
+//   }
+
+//   let searchTr = document.getElementById(`s_${sno}`);
+//   searchTr.children[1].innerHTML = sname;
+//   searchTr.children[2].innerHTML = eng;
+//   searchTr.children[3].innerHTML = kor;
+
 // });
 
-//function chageCallBack1(e) {
-chageBtn.addEventListener('click', function(e) {
-  e.preventDefault(); //기본기능 차단(페이지 넘어가는 기능을 차단하기 위함인데 현재하는 것에는 상관 없음)
-
-  let fields = ['sname', 'eng', 'kor'];
-
-  function result() {
-    fields.forEach((field) => {
-      let sno = document.getElementById('sno').value;
-      let check = document.getElementById(field).value;
-      if(!check && !sno) { 
-        return 'false';
-      }
-      return 'true';
-    });
-  }
-
-  if (result) {
-    fields.forEach((field, idx) => {
-      let searchTr = document.getElementById(`s_${sno}`);
-      searchTr.children[idx+1].innerHTML = document.getElementById(field).value;
-      // searchTr.children[2].innerHTML = document.getElementById('eng').value; //확실한 코드이므로 for보다는 값을 대입하는 것을 사용하는 것을 권장
-      // searchTr.children[3].innerHTML = document.getElementById('kor').value;
-    });
-  } else {
-      alert(`필수 값을 입력하세요`);
-  }
-});
-
+//추가버튼 이벤트
 let addBtn = document.querySelector('input[type="submit"]');
 addBtn.addEventListener('click', function(e) {
   e.preventDefault();
@@ -68,12 +89,12 @@ addBtn.addEventListener('click', function(e) {
   let studName = document.getElementById('sname').value
   let engScore = document.getElementById('eng').value
   let korScore = document.getElementById('kor').value
-  
-  if(!(studNo || studName || engScore || korScore)) {
+
+  if(!studNo || !studName || !engScore || !korScore) {
     alert('필수값을 입력하세요')
     return;
   }
-
+  
   addStud.studNo = studNo;
   addStud.studName = studName;
   addStud.engScore = engScore;
