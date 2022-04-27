@@ -59,3 +59,20 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('show').appendChild(ulTag);
 
 });
+
+//reduce 사용
+document.addEventListener('DOMContentLoaded', function () {
+  let menus = ['아이스아메리카노', '카페라떼', '레몬에이드'];
+
+  menus.reduce((tag, menu, idx) => {
+    if (idx == 0) {
+      tag += document.createElement('ul');
+    }
+    tag += document.createElement('li')
+    tag.innerHTML 
+    if (idx == menus.length-1) {
+      tag += document.createElement('/ul');
+    }
+  }, '');
+
+});
