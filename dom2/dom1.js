@@ -68,7 +68,7 @@ chageBtn.addEventListener('click', function(e) {
 //   let eng = document.getElementById('eng').value;
 //   let kor = document.getElementById('kor').value;
 
-//   if(!sno || !sname || !eng || !kor) {
+//   if(!(sno && sname && eng && kor)) {
 //     alert('필수값을 입력하세요');
 //     return;
 //   }
