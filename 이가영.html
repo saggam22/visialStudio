@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="info">
+        <form action="#">
+            사용자아이디<input type="text" name="user_id" id="user_id" value=""><br>
+            사용자이름 <input type="text" name="user_name" id="user_name" value=""><br>
+            이메일 <input type="email" name="mail" id="mail" value=""><br>
+            전화번호 <input type="tel" name="phone" id="phone" value=""><br>
+            생년월일 <input type="date" name="birthday" id="birthday" value=""><br>
+            <br>
+            <input type="submit" value="등록">
+            <input type="button" value="선택삭제">
+        </form>
+        <hr>
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>순번</th>
+                    <th>선택</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>전화번호</th>
+                    <th>생년월일</th>
+                </tr>
+            </thead>
+            <tbody id="list">
+            </tbody>
+        </table>
+    </div>
+    <script>
+
+        let data = [{suserId:'user1', userName:'홍길동', mail:'hong@email.com', phone:'010-9870-1231', date:'1994-03-12'},
+        {userId:'user2', userName:'홍길동', mail:'hong@email.com', phone:'010-9870-1231', date:'1994-03-12'},
+        {userId:'user3', userName:'홍길동', mail:'hong@email.com', phone:'010-9870-1231', date:'1994-03-12'},
+        {userId:'user4', userName:'홍길동', mail:'hong@email.com', phone:'010-9870-1231', date:'1994-03-12'}];
+
+        let list = document.getElementById('list'); //tboby에 해당
+
+        data.forEach((elem) => {
+            list.appendChild(makeTr(elem));
+        });
+
+        //선택삭제
+        let delBtn = document.querySelector('input[type="button"]');
+        delBtn.addEventListener('click', callBackDel);
+
+        //정보를 리스트에 추가하기
+        let addBtn = document.querySelector('input[type="submit"]');
+        addBtn.addEventListener('click', callBackAdd);
+
+        //삭제function
+        function callBackDel(e) {
+            let allTr = document.querySelectorAll('tbody>tr');
+            allTr.forEach(function (tr) {
+                if (tr.children[1].firstChild.checked == true) {
+                    tr.remove();
+                    makeNo();
+                }
+            });
+        }
+
+        //추가 function
+        function callBackAdd(e) {
+            e.preventDefault();
+
+            let userId = document.getElementById('user_id').value
+            let userName = document.getElementById('user_name').value
+            let mail = document.getElementById('mail').value
+            let phone = document.getElementById('phone').value
+            let date = document.getElementById('birthday').value
+
+            if (!(userId && userName && mail && phone && date)) {
+                alert('필수값을 입력하세요')
+                return;
+            }
+
+            info = {};
+            info.userId = userId;
+            info.userName = userName;
+            info.mail = mail;
+            info.phone = phone;
+            info.date = date;
+
+            let list = document.getElementById('list');
+            list.appendChild(makeTr(info));
+        }
+        
+        //makeTr function
+        function makeTr(info) {
+            
+            let tr = document.createElement('tr');
+            
+            //순번 매기기
+            let td = document.createElement('td');
+            tr.appendChild(td);
+            
+            //체크박스 생성
+            tr.appendChild(makeCheckBox());
+            
+            //입력값 추가
+            for (let field in info) {
+                let td = document.createElement('td');
+                td.innerHTML = info[field];
+                tr.appendChild(td);
+            }
+            return tr;
+        }
+        
+        //makeCheckBox funtion
+        function makeCheckBox () {
+            let td = document.createElement('td');
+            let check = document.createElement('input');
+            check.setAttribute('type', 'checkbox');
+            td.appendChild(check);
+            return td;
+        }
+        
+        function makeNo() {
+            let allTr = document.querySelectorAll('tbody>tr');
+            for(let i=0; i<allTr.length; i++) {
+                allTr[i].children[0].innerHTML = i+1;
+            }
+        }
+        makeNo();
+
+        //이런 방법으로도 정리 가능!
+        //function makeTr(student){ 
+            // let tr = document.createElement('tr');
+            // for(let field in student){
+    //         if(field == 'select'){
+    //             let checkbox = document.createElement('input');
+    //             checkbox.setAttribute("type","checkbox");
+    //             let td = document.createElement('td');
+    //             tr.appendChild(td);
+    //             td.appendChild(checkbox);
+    //         } else if(field == 'no'){
+    //             let td = document.createElement('td');
+    //             td.innerHTML =cnt;
+    //             tr.appendChild(td);
+    //             cnt++;
+    //         } else{
+    //             let td = document.createElement('td');
+    //             td.innerHTML = student[field];
+    //             tr.appendChild(td);
+    //         }
+    //     }
+    //     return tr;
+    // }
+    </script>
+</body>
+
+</html>
